@@ -32,6 +32,9 @@ export class ProductService {
   }
 
   async deleteProduct(id: number) {
+    // Deleting the file could probably be done within Typeorm Subscribers
+    // https://orkhan.gitbook.io/typeorm/docs/listeners-and-subscribers
+    // But to keep the project simple, this is good enough for now
     const productFromDb = await this.getProductById(id)
 
     await this.productRepository.delete({ id })
