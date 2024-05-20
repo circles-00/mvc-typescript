@@ -5,7 +5,7 @@ import {
   BaseEntity as TypeORMBaseEntity,
 } from 'typeorm'
 
-export abstract class BaseEntity extends TypeORMBaseEntity {
+export abstract class BaseModel extends TypeORMBaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 

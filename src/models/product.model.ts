@@ -1,8 +1,10 @@
-import { Column, Entity } from 'typeorm'
-import { BaseEntity } from './base.model'
+import { Column, Entity, OneToMany } from 'typeorm'
+import { BaseModel } from './base.model'
+import { ProductVariant } from './product-variant.model'
+import { ProductOption } from './product-option.model'
 
 @Entity()
-export class Product extends BaseEntity {
+export class Product extends BaseModel {
   @Column()
   name: string
 
@@ -10,8 +12,14 @@ export class Product extends BaseEntity {
   description: string
 
   @Column()
-  price: number
+  basePrice: number
 
   @Column()
-  inventory: number
+  image: string
+
+  @OneToMany(() => ProductVariant, (productVariant) => productVariant.product)
+  variants: ProductVariant[]
+
+  @OneToMany(() => ProductOption, (productOption) => productOption.product)
+  productOptions: ProductOption[]
 }
