@@ -1,13 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include ('../partials/head') %>
-  </head>
-  <body class="container">
-    <main>
-      <div class="flex flex-col p-2">
-        <h1 class="font-bold text-xl">Hello World!</h1>
-        <p>Using Tailwind everywhere is fun!</p>
+  <%- include ('../partials/head') %>
+  <body>
+
+    <script>
+      const showConfirmationDialog = () => {
+        const confirmationDialog = document.getElementById('confirmation-dialog')
+
+        confirmationDialog.classList.remove('hidden')
+        confirmationDialog.classList.add('flex')
+      }
+
+      const hideConfirmationDialog = () => {
+        const confirmationDialog = document.getElementById('confirmation-dialog')
+
+        confirmationDialog.classList.remove('flex')
+        confirmationDialog.classList.add('hidden')
+      }
+
+      const onDelete = (productId) => {
+        showConfirmationDialog()
+
+        const cancelButton = document.getElementById('confirm-cancel-btn')
+        cancelButton.onclick = hideConfirmationDialog
+
+        const deleteButton = document.getElementById('confirm-delete-btn')
+        deleteButton.onclick = async () => {
+          hideConfirmationDialog ()
+          await fetch(`/api/product?id=${productId}`, {
+            method: "DELETE"
+          })
+
+          // Note: workaround, since you cannot reliably redirect after delete request on Express
+          window.location.reload()
+        }
+      }
+
+    </script>
+    <%- include ('../partials/confirmation-dialog') %>
+    <main class="mx-4 md:mx-10">
+      <div class="flex justify-between items-center my-2">
+        <h1 class="font-bold text-xl my-4">List of Products</h1>
+        <a href="/create" class="px-2 h-12 flex items-center rounded-md hover:bg-white text-white hover:text-buttonContained bg-buttonContained border-slate-500 border-solid border-[1px]">Create a product</a>
+      </div>
+
+      <div class="shadow-lg rounded-lg overflow-hidden ">
+        <table class="w-full table-fixed">
+          <thead>
+            <tr class="bg-gray-50">
+              <% columns.map((column) => { %>
+              <th class="w-1/4 py-4 px-6 text-left text-gray-700 font-bold uppercase"> <%= column %></th>
+              <% }) %>
+              <th class="w-1/4 py-4 px-6 text-left font-bold text-gray-700 uppercase"> Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <% products.map((product) => { %>
+            <tr>
+              <% Object.entries(product).map(([key, value]) => { %>
+              <% if(key === 'image'){ %>
+              <td class="py-4 px-6 border-b border-gray-200"><img src="<%= value %>" class="w-20 h-20"></img></td>
+              <% } else{ %>
+              <td class="py-4 px-6 border-b border-gray-200"><%= value %></td>
+              <% } %>
+              <% }) %>
+              <td>
+                <div class="flex items-center gap-4">
+                  <a class="text-green-700" href="/view?id=<%= product.id %>">View</a>
+                  <a class="text-buttonContained" href="/edit?id=<%= product.id %>">Edit</a>
+                  <button onclick="onDelete('<%= product.id %>')" class="text-red-700">Delete</button>
+                </div>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
       </div>
     </main>
   </body>

@@ -8,7 +8,7 @@ export const dataSource = new DataSource({
   username: env.DB_USER,
   password: env.DB_PASSWORD,
   database: env.DB_NAME,
-  entities: ['src/models/*.ts', 'dist/models/*js'],
+  entities: ['src/models/*.ts'], //  'dist/models/*js']
   logging: env.NODE_ENV === 'development',
   synchronize: true,
 })

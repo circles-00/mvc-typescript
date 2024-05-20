@@ -10,11 +10,13 @@ export const loggerMiddleware = pinoHttp({
     },
   },
   serializers: {
-    req: ({ id, method, url, query }) => ({
+    req: ({ id, method, url, query, body, file }) => ({
       id,
       method,
       url,
       query,
+      body,
+      file,
     }),
   },
 })
