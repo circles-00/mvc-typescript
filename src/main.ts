@@ -32,5 +32,5 @@ app.use(express.static('public'))
 app.use('/', productRouter)
 
 app.listen(env.PORT, () => {
-  logger.info('Server is running on port 3000')
+  logger.info(`Server is running on port ${env.PORT}`)
 })
