@@ -22,7 +22,14 @@
           imagePreview.src = ""
         }
       }
+
       document.addEventListener('DOMContentLoaded', () => {
+        const id = <%= typeof data !== 'undefined' ? data.id : undefined %>
+
+          if(!!id) {
+            const imageInput = document.getElementById('image')
+            imageInput.removeAttribute('required')
+          }
       })
     </script>
 
@@ -34,21 +41,21 @@
           <div class="flex justify-between gap-4">
             <div class="flex flex-col gap-2">
               <label for="name">Name</label>
-              <input value="<%= typeof data !== 'undefined' ? data.name : '' %>" class="border-[1px] border-gray-400 border-solid p-1" id="name" name="name" placeholder="Product Name" />
+              <input required value="<%= typeof data !== 'undefined' ? data.name : '' %>" class="border-[1px] border-gray-400 border-solid p-1" id="name" name="name" placeholder="Product Name" />
             </div>
             <div class="flex flex-col gap-2">
               <label for="basePrice">Base Price</label>
-              <input value="<%= typeof data !== 'undefined' ? data.basePrice : '' %>" type="number" min="0" class="border-[1px] border-gray-400 border-solid p-1" id="basePrice" name="basePrice" placeholder="Product Base Price" />
+              <input required value="<%= typeof data !== 'undefined' ? data.basePrice : '' %>" type="number" min="0" class="border-[1px] border-gray-400 border-solid p-1" id="basePrice" name="basePrice" placeholder="Product Base Price" />
             </div>
           </div>
           <div class="flex flex-col gap-2 w-full">
             <label for="description">Description</label>
-            <textarea rows="5" maxlength="1000" name="description" class="p-1 border-gray-400 border-solid border-[1px]" placeholder="Product Description"><%= typeof data !== 'undefined' ? data.description : '' %></textarea>
+            <textarea required rows="5" maxlength="1000" name="description" class="p-1 border-gray-400 border-solid border-[1px]" placeholder="Product Description"><%= typeof data !== 'undefined' ? data.description : '' %></textarea>
           </div>
           <div class="flex flex-col gap-2 w-full">
             <label for="image">Image</label>
             <img src="<%= typeof data !== 'undefined' ? data.image : '' %>" id="preview" style="display: 'none';"></img>
-            <input accept="image/*" onchange="onImageChange()" type="file" class="border-[1px] border-gray-400 border-solid p-1" id="image" name="image" placeholder="Product Image" />
+            <input required accept="image/*" onchange="onImageChange()" type="file" class="border-[1px] border-gray-400 border-solid p-1" id="image" name="image" placeholder="Product Image" />
           </div>
         </div>
         <button class="bg-buttonContained text-white rounded-md px-4 py-2 w-24">Save</button>
