@@ -1,11 +1,7 @@
-import { NextFunction, Request, Response } from 'express'
+import { IRouteHandler } from './types'
 
 export class ProductController {
-  constructor() {}
-
-  getProducts(req: Request, res: Response, next: NextFunction) {
-    req.log.info({ req, res, next })
-
-    res.render('pages/index')
+  async getProducts({ response }: IRouteHandler) {
+    response.render('pages/index')
   }
 }

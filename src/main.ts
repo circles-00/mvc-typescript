@@ -3,6 +3,17 @@ import { logger, loggerMiddleware } from './middlewares'
 import { env } from './utils'
 import { productRouter } from './routes'
 import { join } from 'path'
+import { dataSource } from './config/database'
+
+dataSource
+  .initialize()
+  .then(() => {
+    logger.info('Data Source has been succcessfully initialized!')
+  })
+  .catch((err) => {
+    logger.error('Error during Data Source initialization:', err)
+    process.exit(-1)
+  })
 
 const app = express()
 

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
+    "build": "npx tsc",
     "start-dev": "concurrently \"env-cmd -f ./.env ts-node -r tsconfig-paths/register src/main.ts\" \"yarn tailwindcss -i ./public/style.css -o ./public/output.css --watch\"",
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/main.js"
   },
@@ -36,6 +37,9 @@
   "dependencies": {
     "ejs": "3.1.10",
     "express": "4.19.2",
-    "pino-http": "10.1.0"
+    "pg": "8.11.5",
+    "pino-http": "10.1.0",
+    "reflect-metadata": "0.2.2",
+    "typeorm": "0.3.20"
   }
 }
