@@ -11,4 +11,5 @@ export const dataSource = new DataSource({
   entities: ['src/models/*.ts'], //  'dist/models/*js']
   logging: env.NODE_ENV === 'development',
   synchronize: true,
+  ssl: true,
 })

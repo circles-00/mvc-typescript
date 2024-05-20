@@ -17,7 +17,7 @@ const envSchema = z.object({
   DB_NAME: zString,
   DB_USER: zString,
   DB_PASSWORD: zString,
-  DB_PORT: zNumber,
+  DB_PORT: zNumber.optional(),
 })
 
 export const env = envSchema.parse(process.env)

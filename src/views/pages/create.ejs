@@ -8,7 +8,6 @@
 
         const image = document.getElementById("image")
         const imageFile = image?.files?.[0]
-        console.log(imageFile)
 
         const fileReader = new FileReader()
         fileReader.onload = function () {
@@ -24,9 +23,9 @@
       }
 
       document.addEventListener('DOMContentLoaded', () => {
-        const id = <%= typeof data !== 'undefined' ? data.id : undefined %>
+        const isCreate = window.location.pathname.includes('create')
 
-          if(!!id) {
+          if(!isCreate) {
             const imageInput = document.getElementById('image')
             imageInput.removeAttribute('required')
           }

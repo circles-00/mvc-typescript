@@ -1,6 +1,7 @@
 import { Product } from '@/models'
 import { dataSource } from '@/config'
 import { unlink } from 'fs/promises'
+import { logger } from '@/middlewares'
 
 export class ProductService {
   constructor(
@@ -39,6 +40,13 @@ export class ProductService {
 
     await this.productRepository.delete({ id })
 
-    await unlink(`public/${productFromDb?.image}`)
+    try {
+      // Normally we would have a proper data storage, like S3 or something else
+      // So, for now we can handle ignore the error, since this server will be ran with shared database, but local storage
+      // And thus this will error at some point
+      await unlink(`public/${productFromDb?.image}`)
+    } catch (err) {
+      logger.error(err)
+    }
   }
 }
